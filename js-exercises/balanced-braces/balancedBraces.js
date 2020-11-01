@@ -1,35 +1,20 @@
 function balancedBraces(string) {
-  const splittedString = string.split('');
-  const arrayWithValues = [];
-  splittedString.map((element) => {
-    if (element === '[') {
-      arrayWithValues.push(-1);
-    }
-    if (element === ']') {
-      arrayWithValues.push(1);
-    }
-    if (element === '{') {
-      arrayWithValues.push(-2);
-    }
-    if (element === '}') {
-      arrayWithValues.push(2);
-    }
-    if (element === '(') {
-      arrayWithValues.push(-3);
-    }
-    if (element === ')') {
-      arrayWithValues.push(3);
-    }
-    return null;
-  });
+  const machingBraces = {
+    ']': '[',
+    '}': '{',
+    ')': '(',
+  };
   const stack = [];
-  for (let i = 0; i < arrayWithValues.length; i += 1) {
-    if (arrayWithValues[i] === -stack[stack.length - 1]) {
-      stack.pop();
-    } else {
-      stack.push(arrayWithValues[i]);
+  for (const Char of string) {
+    if (Object.values(machingBraces).includes(Char)) {
+      stack.push(Char);
+    } else if (Object.keys(machingBraces).includes(Char)) {
+      if (stack.pop() !== machingBraces[Char]) {
+        return false;
+      }
     }
   }
+
   return stack.length === 0;
 }
 
